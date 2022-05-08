@@ -51,37 +51,37 @@ export default class SimpleRenderer {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 
-    this.renderer.domElement.addEventListener(
-      "mousedown",
-      this.onMouseDown.bind(this)
-    );
-    this.renderer.domElement.addEventListener(
-      "mouseup",
-      this.onMouseUp.bind(this)
-    );
+    // this.renderer.domElement.addEventListener(
+    //   "mousedown",
+    //   this.onMouseDown.bind(this)
+    // );
+    // this.renderer.domElement.addEventListener(
+    //   "mouseup",
+    //   this.onMouseUp.bind(this)
+    // );
     this.renderer.domElement.addEventListener(
       "mousemove",
       this.onMouseMove.bind(this)
     );
-    this.renderer.domElement.addEventListener(
-      "wheel",
-      this.onMouseWheel.bind(this)
-    );
-    this.renderer.domElement.addEventListener(
-      "touchstart",
-      this.touchStart.bind(this),
-      false
-    );
-    this.renderer.domElement.addEventListener(
-      "touchmove",
-      this.touchMove.bind(this),
-      false
-    );
-    this.renderer.domElement.addEventListener(
-      "touchend",
-      this.touchEnd.bind(this),
-      false
-    );
+    // this.renderer.domElement.addEventListener(
+    //   "wheel",
+    //   this.onMouseWheel.bind(this)
+    // );
+    // this.renderer.domElement.addEventListener(
+    //   "touchstart",
+    //   this.touchStart.bind(this),
+    //   false
+    // );
+    // this.renderer.domElement.addEventListener(
+    //   "touchmove",
+    //   this.touchMove.bind(this),
+    //   false
+    // );
+    // this.renderer.domElement.addEventListener(
+    //   "touchend",
+    //   this.touchEnd.bind(this),
+    //   false
+    // );
 
     this.updateCamera();
     this.render();
