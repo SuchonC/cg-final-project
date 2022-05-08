@@ -36,12 +36,14 @@ export default class BoidsController {
     this.aligmentWeight = 2.0;
     this.cohesionWeight = 4;
     this.separationWeight = 0.3;
+    this.dragForceWeight = 10;
 
     this.maxEntitySpeed = 5;
 
     this.aligmentRadius = 100;
     this.cohesionRadius = 100;
     this.separationRadius = 100;
+    this.dragForceRadius = 500;
     this.obstacleRadius = 100;
   }
 
@@ -137,12 +139,13 @@ export default class BoidsController {
    * @param {Number} start start index for calculation
    * @param {Number} end end index for calculation
    */
-  iterate(start = 0, end = this.flockEntities.length) {
+  iterate(mouseX, mouseY, start = 0, end = this.flockEntities.length) {
     for (let i = start; i < end; i++) {
       const entity = this.flockEntities[i];
       const aligmentVel = this.computeAlignment(entity);
       const cohVel = this.computeCohesion(entity);
       const sepVel = this.computeSeparation(entity);
+      const dragVel = this.computeDragForceVelocity(entity, mouseX, mouseY);
       const obsVel = this.computeObstacles(entity);
 
       // add components
@@ -150,16 +153,19 @@ export default class BoidsController {
         this.aligmentWeight * aligmentVel[0] +
         this.cohesionWeight * cohVel[0] +
         50 * this.separationWeight * sepVel[0] +
+        this.dragForceWeight * dragVel[0] +
         100 * obsVel[0];
       const vy =
         this.aligmentWeight * aligmentVel[1] +
         this.cohesionWeight * cohVel[1] +
         50 * this.separationWeight * sepVel[1] +
+        this.dragForceWeight * dragVel[1] +
         100 * obsVel[1];
       const vz =
         this.aligmentWeight * aligmentVel[2] +
         this.cohesionWeight * cohVel[2] +
         50 * this.separationWeight * sepVel[2] +
+        this.dragForceWeight * dragVel[2] +
         100 * obsVel[2];
 
       entity.addVelocity(vx, vy, vz);
@@ -170,6 +176,19 @@ export default class BoidsController {
         this.boundaryZ
       );
     }
+  }
+
+  /**
+   * Compute drag force vector for the given entity
+   * @param {Entity} entity
+   */
+  computeDragForceVelocity(entity, mouseX, mouseY) {
+    const dx = entity.x - mouseX;
+    const dy = entity.y - mouseY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < this.dragForceRadius) {
+      return [mouseX, mouseY, entity.vz];
+    } else return [0, 0, 0];
   }
 
   /**

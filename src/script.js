@@ -2,6 +2,9 @@ import BoidsController from "./common/BoidsController";
 import SimpleRenderer from "./common/SimpleRenderer";
 import ControlHelper from "./common/ControlHelper";
 
+const mouseXDefaultPosition = 0;
+const mouseYDefaultPosition = 0;
+
 class Application {
   constructor() {
     this.flockEntityCount = 400;
@@ -43,13 +46,19 @@ class Application {
     this.controlHelper.statBegin();
 
     // calculate boids entities
-    this.boidsController.iterate();
+    this.boidsController.iterate(
+      this.simpleRenderer.mouseX,
+      this.simpleRenderer.mouseY
+    );
 
     // update screen by rendering
     this.simpleRenderer.render();
 
     // call statEnd() to finalize measuring time
     this.controlHelper.statEnd();
+
+    this.simpleRenderer.mouseX = mouseXDefaultPosition;
+    this.simpleRenderer.mouseY = mouseYDefaultPosition;
   }
 }
 

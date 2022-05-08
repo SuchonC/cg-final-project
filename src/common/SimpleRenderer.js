@@ -168,6 +168,8 @@ export default class SimpleRenderer {
 
   onMouseMove(e) {
     if (!this.isDragging) {
+      this.mouseX = e.clientX;
+      this.mouseY = e.clientY;
       return;
     }
 
