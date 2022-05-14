@@ -45,6 +45,8 @@ class Application {
     // call statBegin() to measure time that is spend in BoidsController
     this.controlHelper.statBegin();
 
+    // console.log(this.simpleRenderer.mouseX, this.simpleRenderer.mouseY)
+
     // calculate boids entities
     this.boidsController.iterate(
       this.simpleRenderer.mouseX,
@@ -57,8 +59,8 @@ class Application {
     // call statEnd() to finalize measuring time
     this.controlHelper.statEnd();
 
-    this.simpleRenderer.mouseX = mouseXDefaultPosition;
-    this.simpleRenderer.mouseY = mouseYDefaultPosition;
+    // this.simpleRenderer.mouseX = mouseXDefaultPosition;
+    // this.simpleRenderer.mouseY = mouseYDefaultPosition;
   }
 }
 

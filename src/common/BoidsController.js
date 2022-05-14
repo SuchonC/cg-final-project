@@ -183,12 +183,14 @@ export default class BoidsController {
    * @param {Entity} entity
    */
   computeDragForceVelocity(entity, mouseX, mouseY) {
+    // console.log(entity.y)
     const dx = entity.x - mouseX;
     const dy = entity.y - mouseY;
+    // console.log('dy', dy)
     const distance = Math.sqrt(dx * dx + dy * dy);
-    if (distance < this.dragForceRadius) {
-      return [mouseX, mouseY, entity.vz];
-    } else return [0, 0, 0];
+
+    return [-dx, dy, entity.vz];
+
   }
 
   /**

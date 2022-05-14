@@ -170,6 +170,7 @@ export default class SimpleRenderer {
     if (!this.isDragging) {
       this.mouseX = e.clientX;
       this.mouseY = e.clientY;
+      console.log(this.mouseX, e.offsetX, this.mouseY, e.offsetY)
       return;
     }
 
@@ -222,10 +223,10 @@ export default class SimpleRenderer {
     const degXPI = (this.degX * Math.PI) / 180;
     const degYPI = (this.degY * Math.PI) / 180;
     this.camera.position.x =
-      mx + Math.sin(degXPI) * Math.sin(degYPI) * this.cameraRadius;
+      mx;
     this.camera.position.z =
-      mz + Math.cos(degXPI) * Math.sin(degYPI) * this.cameraRadius;
-    this.camera.position.y = my + Math.cos(degYPI) * this.cameraRadius;
+      mz * 2;
+    this.camera.position.y = my;
 
     this.camera.lookAt(mx, my, mz);
   }
