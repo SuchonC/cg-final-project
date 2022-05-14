@@ -36,7 +36,7 @@ export default class BoidsController {
     this.aligmentWeight = 2.0;
     this.cohesionWeight = 4;
     this.separationWeight = 0.3;
-    this.dragForceWeight = 1;
+    this.dragForceWeight = 0.5;
 
     this.maxEntitySpeed = 7;
 
