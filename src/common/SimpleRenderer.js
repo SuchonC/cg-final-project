@@ -170,7 +170,6 @@ export default class SimpleRenderer {
     if (!this.isDragging) {
       this.mouseX = e.clientX;
       this.mouseY = e.clientY;
-      console.log(this.mouseX, e.offsetX, this.mouseY, e.offsetY)
       return;
     }
 
