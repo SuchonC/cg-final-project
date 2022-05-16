@@ -38,7 +38,7 @@ export default class BoidsController {
     this.separationWeight = 0.3;
     this.dragForceWeight = 0.5;
 
-    this.maxEntitySpeed = 7;
+    this.maxEntitySpeed = 3;
 
     this.aligmentRadius = 100;
     this.cohesionRadius = 100;
@@ -152,7 +152,7 @@ export default class BoidsController {
       const obsVel = this.computeObstacles(entity);
 
       if (this.lastMouseX == mouseX && this.lastMouseY == mouseY) {
-        this.dragCof = this.dragCof * 0.99997
+        this.dragCof = this.dragCof * 0.9997
         // console.log(dragCof)
       } else {
         this.lastMouseX = mouseX;
@@ -166,21 +166,21 @@ export default class BoidsController {
         50 * this.separationWeight * sepVel[0] +
         this.dragForceWeight * this.dragCof * dragVel[0] +
         100 * obsVel[0] +
-        Math.random() * 300 - 150;
+        this.dragCof * (Math.random() * 300 - 150);
       const vy =
         this.aligmentWeight * aligmentVel[1] +
         this.cohesionWeight * cohVel[1] +
         50 * this.separationWeight * sepVel[1] +
         this.dragForceWeight * this.dragCof * dragVel[1] +
         100 * obsVel[1] +
-        Math.random() * 300 - 150;
+        this.dragCof * (Math.random() * 300 - 150);
       const vz =
         this.aligmentWeight * aligmentVel[2] +
         this.cohesionWeight * cohVel[2] +
         50 * this.separationWeight * sepVel[2] +
         this.dragForceWeight * this.dragCof * dragVel[2] +
         100 * obsVel[2] +
-        Math.random() * 300 - 150;
+        this.dragCof * (Math.random() * 300 - 150);
 
       entity.addVelocity(vx, vy, vz);
       entity.move(
