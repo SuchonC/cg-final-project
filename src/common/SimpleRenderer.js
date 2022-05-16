@@ -31,7 +31,10 @@ export default class SimpleRenderer {
     this.entityGeometry = new THREE.SphereGeometry(5);
     this.obstacleGeometry = new THREE.SphereGeometry(50, 15, 15);
     this.entityMaterial = new THREE.MeshNormalMaterial();
-    this.obstacleMaterial = new THREE.MeshNormalMaterial();
+    this.obstacleMaterial = new THREE.MeshPhongMaterial({
+      color: 0x0a9381,
+      flatShading: true,
+    });
 
     this.createGridVisual(this.boidsController.subDivisionCount);
 

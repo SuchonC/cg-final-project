@@ -29,9 +29,7 @@ export default class Entity {
     this.vy = vy;
     this.vz = vz;
     this.grid = undefined;
-    this.drawBody();
     this.drawLight();
-    this.mesh = this.group.children[0];
     this.isAddedToScene = false;
 
     this.FLOCK_ENTITY = 1;
@@ -49,16 +47,12 @@ export default class Entity {
     const geometry = new THREE.SphereGeometry(5);
     const flyLight = new THREE.Mesh(
       geometry,
-      new THREE.MeshPhongMaterial({
-        color: this.lightColor,
-        flatShading: false,
-      })
+      new THREE.MeshStandardMaterial({ color: this.lightColor })
     );
-    flyLight.rotation.y = 45 * (Math.PI / 180);
-
     const light = new THREE.PointLight(this.lightColor, 2, 400);
     light.add(flyLight);
-    light.castShadow = false;
+    light.castShadow = true;
+    light.receiveShadow = false;
     this.group.add(light);
   }
 
