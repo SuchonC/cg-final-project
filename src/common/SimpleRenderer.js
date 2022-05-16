@@ -26,7 +26,7 @@ export default class SimpleRenderer {
     this.camera.position.z = 0;
 
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xffffff);
+    this.scene.background = new THREE.Color(0x000000);
 
     this.entityGeometry = new THREE.SphereGeometry(5);
     this.obstacleGeometry = new THREE.SphereGeometry(50, 15, 15);
