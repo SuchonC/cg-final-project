@@ -237,26 +237,26 @@ export default class SimpleRenderer {
       const vx = entity.vx;
       const vy = entity.vy;
       const vz = entity.vz;
-      let mesh = entity.mesh;
-      if (!mesh) {
-        mesh = new THREE.Mesh(this.entityGeometry, this.entityMaterial);
-        mesh.localVelocity = { x: 0, y: 0, z: 0 };
-        this.scene.add(mesh);
-        entity.mesh = mesh;
+      if (!entity.isAddedToScene) {
+        this.scene.add(entity.group);
+        entity.isAddedToScene = true;
       }
 
       // apply asymptotic smoothing
-      mesh.position.x = 0.9 * mesh.position.x + 0.1 * x;
-      mesh.position.y = 0.9 * mesh.position.y + 0.1 * y;
-      mesh.position.z = 0.9 * mesh.position.z + 0.1 * z;
-      mesh.localVelocity.x = 0.9 * mesh.localVelocity.x + 0.1 * vx;
-      mesh.localVelocity.y = 0.9 * mesh.localVelocity.y + 0.1 * vy;
-      mesh.localVelocity.z = 0.9 * mesh.localVelocity.z + 0.1 * vz;
+      entity.localVelocity.x = 0.9 * entity.localVelocity.x + 0.1 * vx;
+      entity.localVelocity.y = 0.9 * entity.localVelocity.y + 0.1 * vy;
+      entity.localVelocity.z = 0.9 * entity.localVelocity.z + 0.1 * vz;
 
-      mesh.lookAt(
-        mesh.position.x + mesh.localVelocity.x,
-        mesh.position.y + mesh.localVelocity.y,
-        mesh.position.z + mesh.localVelocity.z
+      entity.group.position.set(
+        0.9 * entity.group.position.x + 0.1 * x,
+        0.9 * entity.group.position.y + 0.1 * y,
+        0.9 * entity.group.position.z + 0.1 * z
+      );
+
+      entity.group.lookAt(
+        entity.group.position.x + entity.localVelocity.x,
+        entity.group.position.y + entity.localVelocity.y,
+        entity.group.position.z + entity.localVelocity.z
       );
     });
 
