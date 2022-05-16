@@ -221,10 +221,8 @@ export default class SimpleRenderer {
 
     const degXPI = (this.degX * Math.PI) / 180;
     const degYPI = (this.degY * Math.PI) / 180;
-    this.camera.position.x =
-      mx;
-    this.camera.position.z =
-      mz * 2;
+    this.camera.position.x = mx;
+    this.camera.position.z = mz * 2;
     this.camera.position.y = my;
 
     this.camera.lookAt(mx, my, mz);
