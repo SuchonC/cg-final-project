@@ -8,7 +8,7 @@ const mouseYDefaultPosition = 0;
 class Application {
   constructor() {
     this.flockEntityCount = 100;
-    this.obstacleEntityCount = 0;
+    this.obstacleEntityCount = 10;
     this.simpleRenderer = undefined;
     this.boidsController = undefined;
     this.controlHelper = undefined;
