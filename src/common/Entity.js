@@ -44,15 +44,14 @@ export default class Entity {
   }
 
   drawLight() {
-    const geometry = new THREE.SphereGeometry(5);
-    const flyLight = new THREE.Mesh(
-      geometry,
+    const flyGeometry = new THREE.SphereGeometry(5);
+    const flyMesh = new THREE.Mesh(
+      flyGeometry,
       new THREE.MeshStandardMaterial({ color: this.lightColor })
     );
     const light = new THREE.PointLight(this.lightColor, 2, 400);
-    light.add(flyLight);
+    light.add(flyMesh);
     light.castShadow = true;
-    light.receiveShadow = false;
     this.group.add(light);
   }
 
