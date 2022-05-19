@@ -43,7 +43,7 @@ export default class ControlHelper {
     this.stats.end();
   }
 
-  addBoids(count = 50) {
+  addBoids(count = 10) {
     const boundary = this.boidsController.getBoundary();
     for (let i = 0; i < count; i++) {
       const x = Math.floor(Math.random() * boundary[0]);
