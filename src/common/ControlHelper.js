@@ -21,7 +21,6 @@ export default class ControlHelper {
     document.body.appendChild(this.stats.dom);
 
     const gui = new dat.GUI();
-    gui.add(this.boidsController, "aligmentWeight", 0, 5).name("Alignment");
     gui.add(this.boidsController, "cohesionWeight", 0, 5).name("Cohesion");
     gui.add(this.boidsController, "separationWeight", 0, 5).name("Separation");
     gui.add(this.boidsController, "maxEntitySpeed", 1, 10).name("Max Speed");
