@@ -1,3 +1,8 @@
+import { EffectComposer } from "../post-processing/EffectComposer";
+import { RenderPass } from "../post-processing/RenderPass";
+import { ShaderPass } from "../post-processing/ShaderPass";
+import { UnrealBloomPass } from "../post-processing/UnrealBloomPass";
+
 /**
  * @module SimpleRenderer
  * SimpleRenderer helps visualizing the entities in the BoidsController and controls the camera.
