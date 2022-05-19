@@ -29,7 +29,6 @@ export default class ControlHelper {
       gui.add(this.renderer.gridVisual, "visible").name("Show Grid");
     }
 
-    gui.add(this.renderer, "lockOn").name("Lock Camera");
     this.boidsButton = gui.add(this, "addBoids");
     this.obstacleButton = gui.add(this, "addObstacles");
 
