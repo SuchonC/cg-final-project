@@ -102,13 +102,13 @@ export default class SimpleRenderer {
           const geometry = new THREE.BoxGeometry(len, len, len);
           const wireframe = new THREE.EdgesGeometry(geometry);
           const line = new THREE.LineSegments(wireframe);
-          //line.material.depthTest = false;
+          line.material.depthTest = false;
           line.material.color = new THREE.Color(0x999999);
           line.material.transparent = false;
           line.position.x = len / 2 + x * len;
           line.position.y = len / 2 + y * len;
           line.position.z = len / 2 + z * len;
-          //this.scene.add(line);
+          this.scene.add(line);
           this.gridVisual.add(line);
         }
       }
