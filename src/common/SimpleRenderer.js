@@ -1,7 +1,3 @@
-import { EffectComposer } from "../post-processing/EffectComposer";
-import { RenderPass } from "../post-processing/RenderPass";
-import { ShaderPass } from "../post-processing/ShaderPass";
-import { UnrealBloomPass } from "../post-processing/UnrealBloomPass";
 
 /**
  * @module SimpleRenderer
@@ -18,7 +14,6 @@ export default class SimpleRenderer {
     const b = this.boidsController.getBoundary();
     this.cameraMax = Math.max(b[0], b[1], b[2]);
     this.cameraRadius = (this.cameraMax * 2) / 3;
-    this.lockOn = false;
   }
 
   init() {
@@ -31,7 +26,6 @@ export default class SimpleRenderer {
     this.camera.position.z = 0;
 
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x000000);
 
     this.entityGeometry = new THREE.SphereGeometry(5);
     this.obstacleGeometry = new THREE.SphereGeometry(50, 15, 15);
@@ -214,8 +208,6 @@ export default class SimpleRenderer {
       mz = b[2] / 2;
     }
 
-    const degXPI = (this.degX * Math.PI) / 180;
-    const degYPI = (this.degY * Math.PI) / 180;
     this.camera.position.x = mx;
     this.camera.position.z = mz * 2;
     this.camera.position.y = my;
@@ -271,10 +263,6 @@ export default class SimpleRenderer {
       mesh.position.y = y;
       mesh.position.z = z;
     });
-
-    if (this.lockOn && entities.length > 0) {
-      this.updateCamera();
-    }
 
     this.composer.render();
   }
