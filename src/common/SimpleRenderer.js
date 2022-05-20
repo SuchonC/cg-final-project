@@ -1,11 +1,8 @@
 import {
   SelectiveBloomEffect,
-  BlendFunction,
-  KernelSize,
   EffectPass,
   EffectComposer,
   RenderPass,
-  BloomEffect,
 } from "postprocessing";
 
 /**
