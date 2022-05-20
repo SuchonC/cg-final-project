@@ -49,7 +49,7 @@ export default class Entity {
       flyGeometry,
       new THREE.MeshStandardMaterial({ color: this.lightColor })
     );
-    const light = new THREE.PointLight(this.lightColor, 2, 400);
+    const light = new THREE.PointLight(this.lightColor, 2, 400, 1);
     light.add(flyMesh);
     light.castShadow = true;
     this.group.add(light);
