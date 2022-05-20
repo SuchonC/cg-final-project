@@ -36,13 +36,6 @@ export default class Entity {
     this.OBSTACLE_ENTITY = 1;
   }
 
-  drawBody() {
-    let entityGeometry = new THREE.SphereGeometry(0.1);
-    let entityMaterial = new THREE.MeshNormalMaterial();
-    let mesh = new THREE.Mesh(entityGeometry, entityMaterial);
-    this.group.add(mesh);
-  }
-
   drawLight() {
     const flyGeometry = new THREE.SphereGeometry(5);
     const flyMesh = new THREE.Mesh(
