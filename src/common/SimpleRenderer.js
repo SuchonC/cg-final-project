@@ -71,6 +71,8 @@ export default class SimpleRenderer {
       0
     );
     this.composer.addPass(bloomPass);
+
+    // event registering
     this.renderer.domElement.addEventListener(
       "mousemove",
       this.onMouseMove.bind(this)
