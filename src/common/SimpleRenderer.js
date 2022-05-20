@@ -67,6 +67,18 @@ export default class SimpleRenderer {
     //   "mouseup",
     //   this.onMouseUp.bind(this)
     // );
+    // composer
+    this.composer = new EffectComposer(this.renderer);
+
+    // passes
+    this.composer.addPass(new RenderPass(this.scene, this.camera));
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      2,
+      0,
+      0
+    );
+    this.composer.addPass(bloomPass);
     this.renderer.domElement.addEventListener(
       "mousemove",
       this.onMouseMove.bind(this)
@@ -289,6 +301,6 @@ export default class SimpleRenderer {
       this.updateCamera();
     }
 
-    this.renderer.render(this.scene, this.camera);
+    this.composer.render();
   }
 }
