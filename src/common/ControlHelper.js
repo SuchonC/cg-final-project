@@ -24,6 +24,8 @@ export default class ControlHelper {
     gui.add(this.boidsController, "cohesionWeight", 0, 5).name("Cohesion");
     gui.add(this.boidsController, "separationWeight", 0, 5).name("Separation");
     gui.add(this.boidsController, "maxEntitySpeed", 1, 10).name("Max Speed");
+    gui.add(this.boidsController, "dragForceWeight", 0, 5).name("Drag Force");
+    gui.add(this.boidsController, "randomness", 0, 1000).name("Randomness");
 
     if (this.boidsController.subDivisionCount > 1) {
       gui.add(this.renderer.gridVisual, "visible").name("Show Grid");
