@@ -26,6 +26,9 @@ export default class ControlHelper {
     gui.add(this.boidsController, "maxEntitySpeed", 1, 10).name("Max Speed");
     gui.add(this.boidsController, "dragForceWeight", 0, 5).name("Drag Force");
     gui.add(this.boidsController, "randomness", 0, 1000).name("Randomness");
+    gui.add(this.renderer, "bloomStrength", 0, 5).name("Bloom strength");
+    gui.add(this.renderer, "bloomRadius", 0, 1).name("Bloom radius");
+    gui.add(this.renderer, "bloomThreshold", 0, 3).name("Bloom threshold");
 
     if (this.boidsController.subDivisionCount > 1) {
       gui.add(this.renderer.gridVisual, "visible").name("Show Grid");

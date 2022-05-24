@@ -17,6 +17,10 @@ export default class SimpleRenderer {
     const b = this.boidsController.getBoundary();
     this.cameraMax = Math.max(b[0], b[1], b[2]);
     this.cameraRadius = (this.cameraMax * 2) / 3;
+
+    this.bloomStrength = 2;
+    this.bloomRadius = 0;
+    this.bloomThreshold = 0;
   }
 
   init() {
@@ -61,19 +65,16 @@ export default class SimpleRenderer {
 
     // passes
     this.composer.addPass(new RenderPass(this.scene, this.camera));
-    const bloomPass = new UnrealBloomPass(
+    this.bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      2,
-      0,
-      0.3
+      this.bloomStrength,
+      this.bloomRadius,
+      this.bloomThreshold
     );
-    this.composer.addPass(bloomPass);
+    this.composer.addPass(this.bloomPass);
 
-    // event registering
-    this.renderer.domElement.addEventListener(
-      "mousemove",
-      this.onMouseMove.bind(this)
-    );
+    this.renderer.domElement // event registering
+      .addEventListener("mousemove", this.onMouseMove.bind(this));
 
     this.updateCamera();
     this.render();
@@ -248,6 +249,9 @@ export default class SimpleRenderer {
       mesh.position.z = z;
     });
 
+    this.bloomPass.strength = this.bloomStrength;
+    this.bloomPass.radius = this.bloomRadius;
+    this.bloomPass.threshold = this.bloomThreshold;
     this.composer.render();
   }
 }
