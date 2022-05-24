@@ -173,27 +173,8 @@ export default class SimpleRenderer {
   }
 
   onMouseMove(e) {
-    if (!this.isDragging) {
-      this.mouseX = e.clientX;
-      this.mouseY = e.clientY;
-      return;
-    }
-
-    const dx = e.offsetX - this.mouseX;
-    const dy = e.offsetY - this.mouseY;
-
     this.mouseX = e.offsetX;
     this.mouseY = e.offsetY;
-
-    this.degX += dx;
-    if (this.degX > 360) this.degX = 0;
-    if (this.degX < 0) this.degX = 360;
-
-    this.degY += dy / 3;
-    this.degY = Math.max(0.1, this.degY);
-    this.degY = Math.min(179.9, this.degY);
-
-    this.updateCamera();
   }
 
   onMouseUp(e) {
