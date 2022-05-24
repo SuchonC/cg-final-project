@@ -33,14 +33,13 @@ export default class BoidsController {
     this.boundaryY = boundaryY;
     this.boundaryZ = boundaryZ;
 
-    this.aligmentWeight = 2.0;
     this.cohesionWeight = 4;
     this.separationWeight = 0.3;
     this.dragForceWeight = 0.5;
+    this.randomness = 500;
 
     this.maxEntitySpeed = 3;
 
-    this.aligmentRadius = 100;
     this.cohesionRadius = 100;
     this.separationRadius = 100;
     this.dragForceRadius = 500;
@@ -101,14 +100,6 @@ export default class BoidsController {
   }
 
   /**
-   * Sets aligment weight. This changes how much flock entities are effected by each others alignment
-   * @param {Number} w
-   */
-  setAligmentWeight(w) {
-    this.aligmentWeight = w;
-  }
-
-  /**
    * Sets cohesion weight. This changes how much flock entities are inclined to stick together
    * @param {Number} w
    */
@@ -145,7 +136,6 @@ export default class BoidsController {
   iterate(mouseX, mouseY, start = 0, end = this.flockEntities.length) {
     for (let i = start; i < end; i++) {
       const entity = this.flockEntities[i];
-      const aligmentVel = this.computeAlignment(entity);
       const cohVel = this.computeCohesion(entity);
       const sepVel = this.computeSeparation(entity);
       const dragVel = this.computeDragForceVelocity(entity, mouseX, mouseY);
@@ -161,26 +151,23 @@ export default class BoidsController {
       }
       // add components
       const vx =
-        this.aligmentWeight * aligmentVel[0] +
         this.cohesionWeight * cohVel[0] +
         50 * this.separationWeight * sepVel[0] +
         this.dragForceWeight * this.dragCof * dragVel[0] +
         100 * obsVel[0] +
-        this.dragCof * (Math.random() * 300 - 150);
+        this.dragCof * (Math.random() * this.randomness - (this.randomness/2));
       const vy =
-        this.aligmentWeight * aligmentVel[1] +
         this.cohesionWeight * cohVel[1] +
         50 * this.separationWeight * sepVel[1] +
         this.dragForceWeight * this.dragCof * dragVel[1] +
         100 * obsVel[1] +
-        this.dragCof * (Math.random() * 300 - 150);
+        this.dragCof * (Math.random() * this.randomness - (this.randomness/2));
       const vz =
-        this.aligmentWeight * aligmentVel[2] +
         this.cohesionWeight * cohVel[2] +
         50 * this.separationWeight * sepVel[2] +
         this.dragForceWeight * this.dragCof * dragVel[2] +
         100 * obsVel[2] +
-        this.dragCof * (Math.random() * 300 - 150);
+        this.dragCof * (Math.random() * this.randomness - (this.randomness/2));
 
       entity.addVelocity(vx, vy, vz);
       entity.move(
@@ -216,53 +203,6 @@ export default class BoidsController {
 
     return [dx, dy, dz];
 
-  }
-
-  /**
-   * Computes alignment vector for the given entity
-   * @param {Entity} entity
-   * @returns {Array} alignment vector
-   */
-  computeAlignment(entity) {
-    let aligmentX = 0;
-    let aligmentY = 0;
-    let aligmentZ = 0;
-    let neighborCount = 0;
-
-    this.grid.getEntitiesInCube(
-      entity.x,
-      entity.y,
-      entity.z,
-      this.aligmentRadius,
-      (currentEntity) => {
-        if (
-          currentEntity != entity &&
-          currentEntity.getType() == Entity.FLOCK_ENTITY &&
-          entity.getDistance(currentEntity) < this.aligmentRadius
-        ) {
-          neighborCount++;
-          aligmentX += currentEntity.vx;
-          aligmentY += currentEntity.vy;
-          aligmentZ += currentEntity.vz;
-        }
-      }
-    );
-
-    if (neighborCount > 0) {
-      aligmentX /= neighborCount;
-      aligmentY /= neighborCount;
-      aligmentZ /= neighborCount;
-      const aligmentMag = Math.sqrt(
-        aligmentX * aligmentX + aligmentY * aligmentY + aligmentZ * aligmentZ
-      );
-      if (aligmentMag > 0) {
-        aligmentX /= aligmentMag;
-        aligmentY /= aligmentMag;
-        aligmentZ /= aligmentMag;
-      }
-    }
-
-    return [aligmentX, aligmentY, aligmentZ];
   }
 
   /**
@@ -435,11 +375,9 @@ export default class BoidsController {
       boundaryZ: this.boundaryZ,
       flockEntities,
       obstacleEntities,
-      aligmentWeight: this.aligmentWeight,
       cohesionWeight: this.cohesionWeight,
       separationWeight: this.separationWeight,
       maxEntitySpeed: this.maxEntitySpeed,
-      aligmentRadius: this.aligmentRadius,
       cohesionRadius: this.cohesionRadius,
       separationRadius: this.separationRadius,
       obstacleRadius: this.obstacleRadius,
@@ -491,11 +429,9 @@ export default class BoidsController {
       data.boundaryZ,
       data.subDivisionCount
     );
-    controller.aligmentWeight = data.aligmentWeight;
     controller.cohesionWeight = data.cohesionWeight;
     controller.separationWeight = data.separationWeight;
     controller.maxEntitySpeed = data.maxEntitySpeed;
-    controller.aligmentRadius = data.aligmentRadius;
     controller.cohesionRadius = data.cohesionRadius;
     controller.separationRadius = data.separationRadius;
     controller.obstacleRadius = data.obstacleRadius;
