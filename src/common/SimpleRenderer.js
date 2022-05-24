@@ -1,9 +1,6 @@
-import {
-  SelectiveBloomEffect,
-  EffectPass,
-  EffectComposer,
-  RenderPass,
-} from "postprocessing";
+import { EffectComposer } from "../post-processing/EffectComposer";
+import { RenderPass } from "../post-processing/RenderPass";
+import { UnrealBloomPass } from "../post-processing/UnrealBloomPass";
 
 /**
  * @module SimpleRenderer
@@ -59,29 +56,18 @@ export default class SimpleRenderer {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
 
-    // blooming options
-    const bloomOptions = {
-      luminanceThreshold: 0,
-      luminanceSmoothing: 1,
-      intensity: 3,
-    };
-
-    // selective blooming effect
-    const selectiveBloomEffect = new SelectiveBloomEffect(
-      this.scene,
-      this.camera,
-      bloomOptions
-    );
-    const selectiveBloomPass = new EffectPass(
-      this.camera,
-      selectiveBloomEffect
-    );
-    this.effect = selectiveBloomEffect;
-
     // composer
     this.composer = new EffectComposer(this.renderer);
+
+    // passes
     this.composer.addPass(new RenderPass(this.scene, this.camera));
-    this.composer.addPass(selectiveBloomPass);
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      2,
+      0,
+      0.3
+    );
+    this.composer.addPass(bloomPass);
 
     // event registering
     this.renderer.domElement.addEventListener(
